@@ -1,9 +1,20 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Veiculo from 'App/Models/Veiculo'
 import { schema, rules } from '@ioc:Adonis/Core/Validator'
+import Database from '@ioc:Adonis/Lucid/Database'
 
 export default class VeiculosController {
   public async index({ request }: HttpContextContract) {
+    if (request.qs().id) {
+      const veiculo = await Veiculo.findOrFail(request.qs().id)
+      return veiculo
+    }
+    if (request.qs().status) {
+      const veiculo = await Database.rawQuery('select * from `veiculos` where `status` = ?', [
+        request.qs().status,
+      ])
+      return veiculo
+    }
     const page = request.qs().page || 1
     const limit = request.qs().limit || 20
     const veiculos = await Veiculo.query().paginate(page, limit)
@@ -21,7 +32,6 @@ export default class VeiculosController {
         ano: schema.number(),
         km: schema.string({ trim: true }),
         cor: schema.string({ trim: true }),
-        status: schema.string({ trim: true }),
         preco_comprado: schema.number(),
       }),
       messages: {

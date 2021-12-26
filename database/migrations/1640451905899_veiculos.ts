@@ -12,7 +12,7 @@ export default class Veiculos extends BaseSchema {
       table.integer('ano')
       table.integer('km')
       table.string('cor')
-      table.string('status')
+      table.string('status').defaultTo('disponivel')
       table.integer('preco_comprado')
       table.timestamps(true)
     })

@@ -5,18 +5,18 @@ Route.get('/', async () => {
 })
 
 Route.group(() => {
-  Route.get('/funcionarios/:?id=', 'FuncionariosController.show') //:?page=&limit=
+  Route.get('/funcionarios/', 'FuncionariosController.index')
   Route.post('/funcionarios', 'FuncionariosController.store')
   Route.put('/funcionarios/:id', 'FuncionariosController.update')
   Route.delete('/funcionarios/:id', 'FuncionariosController.destroy')
 })
 
-Route.get('/funcionarios/?:id=', 'FuncionariosController.index')
+// Route.get('/funcionarios/negociacoes/:id', 'FuncionariosController.show')
 
 Route.group(() => {
   Route.post('/veiculos', 'VeiculosController.create')
   Route.get('/veiculos', 'VeiculosController.index')
-  Route.get('/veiculos/:id', 'VeiculosController.show')
+  // Route.get('/veiculos/:?status=', 'VeiculosController.show')
   Route.delete('/veiculos/:id', 'VeiculosController.destroy')
 })
 

@@ -4,6 +4,11 @@ import Funcionario from 'App/Models/Funcionario'
 
 export default class FuncionariosController {
   public async index({ request }: HttpContextContract) {
+    // const id =  || 1
+    if (request.qs().id) {
+      const funcionario = await Funcionario.findOrFail(request.qs().id)
+      return funcionario
+    }
     const page = request.qs().page || 1
     const limit = request.qs().limit || 20
     const funcionarios = await Funcionario.query().paginate(page, limit)
@@ -37,11 +42,13 @@ export default class FuncionariosController {
     return funcionario
   }
 
-  public async show({ request }: HttpContextContract) {
-    // if
-    const funcionario = await Funcionario.findOrFail(request.qs().id)
-    return request.qs()
-  }
+  // public async show({ request }: HttpContextContract) {
+  //   if (request.qs().id !== '') {
+  //     const funcionario = await Funcionario.findOrFail(request.qs().id)
+  //     return funcionario
+  //   } else {
+  //   }
+  // }
 
   public async update({ params, request }: HttpContextContract) {
     const funcionario = await Funcionario.findOrFail(params.id)
