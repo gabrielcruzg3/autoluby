@@ -29,7 +29,7 @@ export default class FuncionariosController {
         senha: schema.string(),
       }),
       messages: {
-        'required': 'the {{ cpf }} is required',
+        'required': 'the field {{ field }} is required',
         'cpf.range': 'O cpf deve ter 11 números sem hiphen',
         'cpf.unique': 'cpf ja cadastrado',
         'email.unique': 'email já cadastrado',

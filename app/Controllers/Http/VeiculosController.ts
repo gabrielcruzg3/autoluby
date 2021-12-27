@@ -21,7 +21,7 @@ export default class VeiculosController {
     return veiculos
   }
 
-  public async create({ request, response }: HttpContextContract) {
+  public async store({ request, response }: HttpContextContract) {
     const validatedData = await request.validate({
       schema: schema.create({
         chassi: schema.string({ trim: true }, [
@@ -50,9 +50,9 @@ export default class VeiculosController {
     return veiculo
   }
 
-  public async edit({ params, request }: HttpContextContract) {
+  public async update({ params, request }: HttpContextContract) {
     const veiculo = await Veiculo.findOrFail(params.id)
-    const data = await request.validate({
+    const validatedData = await request.validate({
       schema: schema.create({
         chassi: schema.string({ trim: true }),
         marca: schema.string({ trim: true }),
@@ -67,7 +67,7 @@ export default class VeiculosController {
         required: 'o campo {field} não pode ficar vazio',
       },
     })
-    veiculo.merge(data).save()
+    veiculo.merge(validatedData).save()
     return veiculo
   }
 
