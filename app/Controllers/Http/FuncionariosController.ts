@@ -1,17 +1,32 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { schema, rules } from '@ioc:Adonis/Core/Validator'
+import Database from '@ioc:Adonis/Lucid/Database'
 import Funcionario from 'App/Models/Funcionario'
 
 export default class FuncionariosController {
   public async index({ request }: HttpContextContract) {
-    // const id =  || 1
+    //
     if (request.qs().id) {
       const funcionario = await Funcionario.findOrFail(request.qs().id)
-      return funcionario
+
+      const vendedorId = await Database.rawQuery(
+        'select * from `veiculos_vendidos` where `vendedor_id` = ? ',
+        [request.qs().id]
+      )
+
+      const reservadorId = await Database.rawQuery(
+        'select * from `veiculos_reservados` where `vendedor_id` = ? ',
+        [request.qs().id]
+      )
+
+      return { funcionario, vendas: vendedorId, reservas: reservadorId }
     }
+    //
+
     const page = request.qs().page || 1
     const limit = request.qs().limit || 20
     const funcionarios = await Funcionario.query().paginate(page, limit)
+
     return funcionarios
   }
 
@@ -43,11 +58,19 @@ export default class FuncionariosController {
   }
 
   // public async show({ request }: HttpContextContract) {
-  //   if (request.qs().id !== '') {
-  //     const funcionario = await Funcionario.findOrFail(request.qs().id)
-  //     return funcionario
-  //   } else {
-  //   }
+  //   const funcionario = await Funcionario.findOrFail(request.qs().id)
+
+  // const vendedorId = await Database.rawQuery(
+  //   'select * from `veiculos_vendidos` where `vendedor_id` = ? ',
+  //   [request.qs().id]
+  // )
+
+  // const reservadorId = await Database.rawQuery(
+  //   'select * from `veiculos_reservados` where `vendedor_id` = ? ',
+  //   [request.qs().id]
+  // )
+
+  // return { funcionario, vendas: vendedorId, reservas: reservadorId }
   // }
 
   public async update({ params, request }: HttpContextContract) {
