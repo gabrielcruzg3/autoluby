@@ -1,4 +1,4 @@
-import { DateTime } from 'luxon'
+// import { DateTime } from 'luxon'
 import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
 
 export default class VeiculosVendido extends BaseModel {
@@ -17,9 +17,9 @@ export default class VeiculosVendido extends BaseModel {
   @column()
   public vendedor_id: number
 
-  @column.dateTime({ autoCreate: true })
-  public createdAt: DateTime
+  // @column.dateTime({ autoCreate: true })
+  // public createdAt: DateTime
 
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
-  public updatedAt: DateTime
+  // @column.dateTime({ autoCreate: true, autoUpdate: true })
+  // public updatedAt: DateTime
 }

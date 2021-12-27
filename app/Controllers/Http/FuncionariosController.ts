@@ -18,10 +18,22 @@ export default class FuncionariosController {
         'select * from `veiculos_reservados` where `vendedor_id` = ? ',
         [request.qs().id]
       )
+      //
+      const formatDate = (date) => {
+        const newDate = new Date(date)
+        const dateFormated = `${newDate.getDate()}/${newDate.getMonth()}/${newDate.getFullYear()}`
+        return dateFormated
+      }
+      for (let index = 0; index < reservadorId.length; index++) {
+        reservadorId[index].data = formatDate(reservadorId[index].data)
+      }
+      for (let index = 0; index < vendedorId.length; index++) {
+        vendedorId[index].data = formatDate(vendedorId[index].data)
+      }
+      //
 
       return { funcionario, vendas: vendedorId, reservas: reservadorId }
     }
-    //
 
     const page = request.qs().page || 1
     const limit = request.qs().limit || 20
@@ -39,7 +51,7 @@ export default class FuncionariosController {
           rules.email({ sanitize: true }),
           rules.unique({ table: 'funcionarios', column: 'email' }),
         ]),
-        avatar: schema.string(), //recebe uma url, somente(por enquanto #todo processar arquivos)
+        avatar: schema.string(), //recebe uma url, (#todo processar arquivos)
         biografia: schema.string(),
         senha: schema.string(),
       }),
