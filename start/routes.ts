@@ -5,20 +5,23 @@ Route.get('/', async () => {
 })
 
 Route.group(() => {
-  Route.get('/funcionarios/', 'FuncionariosController.index')
+  Route.get('/funcionarios/:?page=1&limit=&id=', 'FuncionariosController.index')
   Route.post('/funcionarios', 'FuncionariosController.store')
   Route.put('/funcionarios/:id', 'FuncionariosController.update')
   Route.delete('/funcionarios/:id', 'FuncionariosController.destroy')
+  // Route.get('/funcionarios/negociacoes/:id', 'FuncionariosController.show')
 })
-
-// Route.get('/funcionarios/negociacoes/:id', 'FuncionariosController.show')
 
 Route.group(() => {
-  Route.post('/veiculos', 'VeiculosController.create')
+  Route.post('/veiculos', 'VeiculosController.store')
   Route.get('/veiculos', 'VeiculosController.index')
-  // Route.get('/veiculos/:?status=', 'VeiculosController.show')
   Route.delete('/veiculos/:id', 'VeiculosController.destroy')
+  Route.put('/veiculos/:id', 'VeiculosController.update')
 })
 
-Route.put('/veiculos/:id', 'VeiculosController.edit')
-//   Route.post('/veiculos',)
+Route.put(
+  '/veiculo/:veiculo_id/funcionario/:funcionario_id/reservar/:id',
+  'ReservasController.update'
+)
+Route.put('/veiculo/:veiculo_id/funcionario/:funcionario_id/vender/:id', 'VendasController.update')
+// Route.resource('veiculo.vender', 'VeiculosController').apiOnly()
