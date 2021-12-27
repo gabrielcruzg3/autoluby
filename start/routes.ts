@@ -1,27 +1,25 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.get('/', async () => {
-  return
+  return 'Olá, bem vindo a AutoLuby!'
 })
 
 Route.group(() => {
-  Route.get('/funcionarios/:?page=1&limit=&id=', 'FuncionariosController.index')
-  Route.post('/funcionarios', 'FuncionariosController.store')
-  Route.put('/funcionarios/:id', 'FuncionariosController.update')
-  Route.delete('/funcionarios/:id', 'FuncionariosController.destroy')
-  // Route.get('/funcionarios/negociacoes/:id', 'FuncionariosController.show')
-})
+  Route.get('/:?page=1&limit=&id=', 'FuncionariosController.index')
+  Route.post('', 'FuncionariosController.store')
+  Route.put('/:id', 'FuncionariosController.update')
+  Route.delete('/:id', 'FuncionariosController.destroy')
+  // Route.get('/negociacoes/:id', 'FuncionariosController.show')
+}).prefix('/funcionarios')
 
 Route.group(() => {
-  Route.post('/veiculos', 'VeiculosController.store')
-  Route.get('/veiculos', 'VeiculosController.index')
-  Route.delete('/veiculos/:id', 'VeiculosController.destroy')
-  Route.put('/veiculos/:id', 'VeiculosController.update')
-})
+  Route.post('', 'VeiculosController.store')
+  Route.get('', 'VeiculosController.index')
+  Route.delete('/:id', 'VeiculosController.destroy')
+  Route.put('/:id', 'VeiculosController.update')
+}).prefix('/veiculos')
 
-Route.put(
-  '/veiculo/:veiculo_id/funcionario/:funcionario_id/reservar/:id',
-  'ReservasController.update'
-)
-Route.put('/veiculo/:veiculo_id/funcionario/:funcionario_id/vender/:id', 'VendasController.update')
-// Route.resource('veiculo.vender', 'VeiculosController').apiOnly()
+Route.group(() => {
+  Route.put('/reservar/:id', 'ReservasController.update')
+  Route.put('/vender/:id', 'VendasController.update')
+}).prefix('/veiculo/:veiculo_id/funcionario/:funcionario_id')
