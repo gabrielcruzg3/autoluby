@@ -4,21 +4,25 @@ import Database from '@ioc:Adonis/Lucid/Database'
 import Funcionario from 'App/Models/Funcionario'
 
 export default class FuncionariosController {
+  //
   public async index({ request }: HttpContextContract) {
-    //
+    //listagem vendas/reservas
     if (request.qs().id) {
-      const funcionario = await Funcionario.findOrFail(request.qs().id)
-
+      const funcionario = await Funcionario.query()
+        .from('funcionarios')
+        .where('id', request.qs().id)
+        .select('id', 'cpf', 'nome', 'email', 'avatar', 'biografia')
+      //carros vendidos
       const vendedorId = await Database.rawQuery(
         'select * from `veiculos_vendidos` where `vendedor_id` = ? ',
         [request.qs().id]
       )
-
+      //carros reservados
       const reservadorId = await Database.rawQuery(
         'select * from `veiculos_reservados` where `vendedor_id` = ? ',
         [request.qs().id]
       )
-      //
+      //formatação da data apresentada
       const formatDate = (date) => {
         const newDate = new Date(date)
         const dateFormated = `${newDate.getDate()}/${newDate.getMonth()}/${newDate.getFullYear()}`
@@ -34,7 +38,7 @@ export default class FuncionariosController {
 
       return { funcionario, vendas: vendedorId, reservas: reservadorId }
     }
-
+    //paginação
     const page = request.qs().page || 1
     const limit = request.qs().limit || 20
     const funcionarios = await Funcionario.query().paginate(page, limit)
@@ -43,6 +47,7 @@ export default class FuncionariosController {
   }
 
   public async store({ request, response }: HttpContextContract) {
+    //
     const validatedData = await request.validate({
       schema: schema.create({
         cpf: schema.number([rules.unique({ table: 'funcionarios', column: 'cpf' })]),
@@ -66,7 +71,18 @@ export default class FuncionariosController {
 
     const funcionario = await Funcionario.create(validatedData)
     response.status(201)
-    return funcionario
+    const { cpf, nome, email, avatar, biografia, id } = funcionario
+
+    return {
+      funcionario: {
+        cpf,
+        nome,
+        email,
+        avatar,
+        biografia,
+        id,
+      },
+    }
   }
 
   // public async show({ request }: HttpContextContract) {
@@ -86,13 +102,16 @@ export default class FuncionariosController {
   // }
 
   public async update({ params, request }: HttpContextContract) {
-    const funcionario = await Funcionario.findOrFail(params.id)
+    const funcionario = await Funcionario.query()
+      .from('funcionarios')
+      .where('id', params.id)
+      .select('id', 'cpf', 'nome', 'email', 'avatar', 'biografia')
     const validatedData = await request.validate({
       schema: schema.create({
         cpf: schema.number(),
         nome: schema.string(),
         email: schema.string({ trim: true }, [rules.email({ sanitize: true })]),
-        avatar: schema.string(),
+        // avatar: schema.string(),
         biografia: schema.string(),
         senha: schema.string(),
       }),
@@ -101,7 +120,7 @@ export default class FuncionariosController {
       },
     })
 
-    funcionario.merge(validatedData).save()
+    funcionario[0].merge(validatedData).save()
     return funcionario
   }
 
