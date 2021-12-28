@@ -22,7 +22,7 @@ export default class Funcionario extends BaseModel {
   public biografia: string
 
   @column()
-  public senha: string
+  public password: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
@@ -32,8 +32,8 @@ export default class Funcionario extends BaseModel {
 
   @beforeSave()
   public static async hashPassword(funcionario: Funcionario) {
-    if (funcionario.$dirty.senha) {
-      funcionario.senha = await Hash.make(funcionario.senha)
+    if (funcionario.$dirty.password) {
+      funcionario.password = await Hash.make(funcionario.password)
     }
   }
 }

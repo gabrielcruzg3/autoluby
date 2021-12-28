@@ -58,14 +58,14 @@ export default class FuncionariosController {
         ]),
         avatar: schema.string(), //recebe uma url, (#todo processar arquivos)
         biografia: schema.string(),
-        senha: schema.string(),
+        password: schema.string(),
       }),
       messages: {
         'required': 'the field {{ field }} is required',
         'cpf.range': 'O cpf deve ter 11 números sem hiphen',
         'cpf.unique': 'cpf ja cadastrado',
         'email.unique': 'email já cadastrado',
-        'senha': 'senha is required',
+        'password': 'password is required',
       },
     })
 
@@ -113,7 +113,7 @@ export default class FuncionariosController {
         email: schema.string({ trim: true }, [rules.email({ sanitize: true })]),
         // avatar: schema.string(),
         biografia: schema.string(),
-        senha: schema.string(),
+        password: schema.string(),
       }),
       messages: {
         required: 'the field {{field}} is required',
