@@ -31,9 +31,9 @@ export default class Funcionario extends BaseModel {
   public updatedAt: DateTime
 
   @beforeSave()
-  public static async hashPassword(user: Funcionario) {
-    if (user.$dirty.senha) {
-      user.senha = await Hash.make(user.senha)
+  public static async hashPassword(funcionario: Funcionario) {
+    if (funcionario.$dirty.senha) {
+      funcionario.senha = await Hash.make(funcionario.senha)
     }
   }
 }
