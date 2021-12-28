@@ -121,7 +121,18 @@ export default class FuncionariosController {
     })
 
     funcionario[0].merge(validatedData).save()
-    return funcionario
+    const { cpf, nome, email, avatar, biografia, id } = funcionario[0]
+
+    return {
+      funcionario: {
+        cpf,
+        nome,
+        email,
+        avatar,
+        biografia,
+        id,
+      },
+    }
   }
 
   public async destroy({ params }: HttpContextContract) {
