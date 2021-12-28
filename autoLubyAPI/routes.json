@@ -1,0 +1,155 @@
+{
+  "root": [
+    {
+      "methods": [
+        "HEAD",
+        "GET"
+      ],
+      "name": "drive.local.serve",
+      "pattern": "/uploads/*",
+      "handler": "Closure",
+      "middleware": []
+    },
+    {
+      "methods": [
+        "HEAD",
+        "GET"
+      ],
+      "name": "",
+      "pattern": "/",
+      "handler": "Closure",
+      "middleware": []
+    },
+    {
+      "methods": [
+        "POST"
+      ],
+      "name": "",
+      "pattern": "/login",
+      "handler": "AuthController.login",
+      "middleware": []
+    },
+    {
+      "methods": [
+        "POST"
+      ],
+      "name": "",
+      "pattern": "/funcionarios",
+      "handler": "FuncionariosController.store",
+      "middleware": []
+    },
+    {
+      "methods": [
+        "HEAD",
+        "GET"
+      ],
+      "name": "",
+      "pattern": "/funcionarios/:?page=1&limit=&id=",
+      "handler": "FuncionariosController.index",
+      "middleware": [
+        "auth:api,api"
+      ]
+    },
+    {
+      "methods": [
+        "PUT"
+      ],
+      "name": "",
+      "pattern": "/funcionarios/:id",
+      "handler": "FuncionariosController.update",
+      "middleware": [
+        "auth:api,api"
+      ]
+    },
+    {
+      "methods": [
+        "DELETE"
+      ],
+      "name": "",
+      "pattern": "/funcionarios/:id",
+      "handler": "FuncionariosController.destroy",
+      "middleware": [
+        "auth:api,api"
+      ]
+    },
+    {
+      "methods": [
+        "POST"
+      ],
+      "name": "",
+      "pattern": "/veiculos",
+      "handler": "VeiculosController.store",
+      "middleware": [
+        "auth:api,api"
+      ]
+    },
+    {
+      "methods": [
+        "HEAD",
+        "GET"
+      ],
+      "name": "",
+      "pattern": "/veiculos",
+      "handler": "VeiculosController.index",
+      "middleware": [
+        "auth:api,api"
+      ]
+    },
+    {
+      "methods": [
+        "DELETE"
+      ],
+      "name": "",
+      "pattern": "/veiculos/:id",
+      "handler": "VeiculosController.destroy",
+      "middleware": [
+        "auth:api,api"
+      ]
+    },
+    {
+      "methods": [
+        "PUT"
+      ],
+      "name": "",
+      "pattern": "/veiculos/:id",
+      "handler": "VeiculosController.update",
+      "middleware": [
+        "auth:api,api"
+      ]
+    },
+    {
+      "methods": [
+        "PUT"
+      ],
+      "name": "",
+      "pattern": "/veiculo/:veiculo_id/funcionario/:funcionario_id/reservar/:id",
+      "handler": "ReservasController.update",
+      "middleware": [
+        "auth:api,api"
+      ]
+    },
+    {
+      "methods": [
+        "PUT"
+      ],
+      "name": "",
+      "pattern": "/veiculo/:veiculo_id/funcionario/:funcionario_id/vender/:id",
+      "handler": "VendasController.update",
+      "middleware": [
+        "auth:api,api"
+      ]
+    },
+    {
+      "methods": [
+        "HEAD",
+        "GET"
+      ],
+      "name": "",
+      "pattern": "/logout",
+      "handler": "AuthController.logout",
+      "middleware": [
+        "auth:api,api"
+      ]
+    }
+  ]
+}
