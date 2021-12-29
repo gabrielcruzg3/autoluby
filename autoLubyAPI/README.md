@@ -23,4 +23,10 @@
 
 ***
 
-*Ps.: Deixei o arquivo de configurações do [Insomnia](./Insomnia_2020-12-28.json) junto com o projeto na raiz do diretório.
+*Ps.: Deixei o arquivo de configurações do [Insomnia](./Insomnia_2021-12-28.json) junto com o projeto na raiz do diretório.
+
+### To do :
+ 1. #README geral
+ 2. noPaginate
+ 3. processar arquivo (avatar)
+ 4. ##### 'RF02' - Perfil de acesso
