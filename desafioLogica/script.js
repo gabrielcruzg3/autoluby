@@ -60,7 +60,7 @@ function arrayByValues(a, b) {
     /* let array = [["c", 2], ["d", 4]], aux = []
     newObj = {}
     conversorObjeto()
-    function conversorObjeto(obj) {
+    function conversorObjeto(params) {
 
 
     }
@@ -82,7 +82,8 @@ function arrayByValues(a, b) {
        for (let index = 0; index < params.length; index++) {
            for (let i = 0; i < array.length; i++) {
                if(params[index] !== array[i]){
-                   aux[aux.length] = array[i]
+                   aux[aux.length] = unsh
+        console.log(`5) ${array}`)
                    
                }if(params[index] !== aux[i]){
                         newArray = aux
